@@ -1,0 +1,1595 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Untitled}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{实验介绍}\label{ux5b9eux9a8cux4ecbux7ecd}
+
+\subsection{实验背景}\label{ux5b9eux9a8cux80ccux666f}
+
+根据用户的用水行为，识别出用户的洗浴行为。厂商可对热水器进行优化改进。对不同客户群提供个性化产品、改进产品智能化和制定相应营销策略。
+本实验的精彩之处在于如何对原始数据进行时间序列化处理，来构造模型数据。
+
+\subsection{实验目标}\label{ux5b9eux9a8cux76eeux6807}
+
+1） 根据热水器采集到的数据，划分一次完整用水事件。 2）
+在划分好的一次完整的用水事件中，识别出洗浴事件。
+
+在本次实验中，我们使用到的原始数据集如下图： （插图）
+我们将根据水流量和停顿时间间隔划分为不同大小的时间区间，每个区间是一次可理解的一次完整用水事件。并从其中识别出属于洗浴的事件。
+
+\subsection{实验步骤}\label{ux5b9eux9a8cux6b65ux9aa4}
+
+实验步骤如下： （插图） 1）
+对热水用户的历史用水数据进行选择性抽取，构建专家样本。 2）
+对步骤1形成的数据集进行数据探索与预处理。包括探索用水时间时间间隔的分布，规约冗余属性、识别用水数据的缺失值，并对缺失值进行处理，根据建模的需要进行属性构造等。
+3）
+在步骤2的建模样数据基础上，建立洗浴事件识别模型，对洗浴事件识别模型进行分析评价。
+4） 对步骤3形成的模型结果应用并对洗浴事件划分进行优化。 5）
+调用洗浴时间识别模型，对实时监控的热水器流水数据进行洗浴时间自动识别。
+
+\section{数据处理}\label{ux6570ux636eux5904ux7406}
+
+\subsection{数据抽取}\label{ux6570ux636eux62bdux53d6}
+
+由于数据量比较大，对原始数据采用无放回随机抽样200家用户2014.1.1------2014.12.31的用水记录建模。抽取后的数据总共包括12个属性：热水器编码、发生时间、开关状态、加热中、保温中、有无水流、实际温度、热水量、水流量、节能模式、加热剩余时间、当前设置温度。
+
+\subsection{数据探索分析}\label{ux6570ux636eux63a2ux7d22ux5206ux6790}
+
+对于抽取后的数据，我们需要对两次水流量不为0的用水记录的时间间隔进行统计分析。用水停顿时间间隔定义为一条水流量不为0的流水记录同下一条水流量不为0的流水记录之间的时间间隔。通过分析用户用水停顿时间间隔的规律性，从而设定划分一次完整用水事件的时间间隔阈值。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{filepath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/original\PYZus{}data.xls}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{filepath}\PY{p}{,}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{水流量}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}d = data[u\PYZsq{}发生时间\PYZsq{}].diff()}
+         \PY{n}{timediff} \PY{o}{=} \PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{seconds}\PY{o}{/}\PY{l+m+mi}{60}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+         
+         \PY{n}{d} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{timediff}\PY{p}{)}
+         
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0\PYZhy{}0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.1\PYZhy{}0.2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.2\PYZhy{}0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.3\PYZhy{}0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.5\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2\PYZhy{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3\PYZhy{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4\PYZhy{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5\PYZhy{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{6\PYZhy{}7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{7\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{8\PYZhy{}9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{9\PYZhy{}10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10\PYZhy{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{11\PYZhy{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{12\PYZhy{}13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{d}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{发生时间}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         
+         
+         
+         \PY{n}{d} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         \PY{n}{d}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{/}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}hist绘制直方图，对每一列显示单独一个直方图}
+         
+         \PY{n}{d}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../tmp/frequency\PYZus{}count.xls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    通过对数据的操作，我们可以看出停顿时间间隔在0-0.3分钟的频率很高，结合日常经验可以判断该间隔应归为一次用水时间中的停顿；停顿时间间隔为6-13分钟的频率较低，分析其为两次用水事件之间的停顿间隔。两次用水事件的停顿时间间隔分布在3-7分钟。
+
+\subsection{数据预处理}\label{ux6570ux636eux9884ux5904ux7406}
+
+观察我们的数据可知，依旧存在数据的普遍问题，缺失值处理，与实验目标无关的属性等。本实验我们针对这些情况相应地应用了缺失值处理、数据规约和属性构造等方法。
+
+\subsubsection{数据规约}\label{ux6570ux636eux89c4ux7ea6}
+
+属性规约：将与判定用户洗浴行为无关的属性去除。剩余9个属性:发生时间、开关状态、加热中、保温中、实际温度、热水量、水流量、加热剩余时间、当前设置温度
+数值规约：数据中，``开关机状态''为``关''，且水流量为0时，此时热水器不处于工作状态，数据记录可以丢弃。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{filepath}\PY{p}{,}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{index1} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{开关机状态}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{关}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{index2} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{水流量}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}
+          \PY{n}{reduct\PYZus{}data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{index1} \PY{o}{|} \PY{n}{index2}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+          \PY{n}{reduct\PYZus{}data} \PY{o}{=} \PY{n}{reduct\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{开关机状态}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{加热中}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{保温中}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{实际温度}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{热水量}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{水流量}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{加热剩余时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{当前设置温度}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          
+          \PY{n}{reduct\PYZus{}data}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../tmp/water\PYZus{}data.xls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{数据变换}\label{ux6570ux636eux53d8ux6362}
+
+由于本实验的挖掘目标是对用户行为中的洗浴事件进行识别，这就需要从用户的各种用水事件（洗漱，洗菜，刷碗和洗澡等）中识别出洗浴事件。首先则是要先识别出一次完整的用水事件。
+一次完整的用水事件是根据水流量和停顿时间间隔的阈值来划分的。根据上节对用户用水时间间隔的规律分析，将阈值暂定为4。
+
+1）划分一次完整的用水事件
+水流量不为0，表示用户正在用水；水流量为0，表示用户用水停顿或者停止用水。
+如果水流量为0的状态超过阈值T，则从该段水流量为0的状态向前寻找最后一条水流量不为0的用水记录作为上次用水事件的结束；向后寻找水流量不为0的用水记录作为下次用水事件的开始。
+
+划分步骤： 1
+读取数据，识别第一条用水记录不为0的数据记录为R1，按顺序识别下一条水流量不为0的记录为R2；
+2 若gap\_i \textgreater{}
+T，则R\_i+1与R\_i之间的记录不能划分到同一次用水事件中，将R\_i+1作为新的读取数据记录的开始；
+若gap\_i \textless{}
+T，则R\_i+1与R\_i之间的记录划分到同一次用水事件中，并将接下来水流量不为0的数据记录为R\_i+2
+3 循环执行步骤2，直到数据读取完毕，结束事件划分
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{threshold} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Timedelta}\PY{p}{(}\PY{n}{minutes} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../tmp/water\PYZus{}data.xls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{encoding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{水流量}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+          
+          \PY{n}{d} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{threshold}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{事件编号}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{d}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+          
+          \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../tmp/divideAction.xls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+172
+
+    \end{Verbatim}
+
+    2)用水事件阈值寻优模型
+
+在上一节中，我们将时间间隔的阈值设为4。但这只是我们对数据简单统计分析后得到的结果。本节就阈值来更新寻找最优的阈值。
+由于地域问题，人们对热水器的使用习惯不同；根据季节变化和时间的不同，对热水器的使用也有相应的变化。
+
+使用不同的阈值，会得到不同的划分事件结果数：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib}
+        \PY{k}{def} \PY{n+nf}{findsum}\PY{p}{(}\PY{n}{threshold}\PY{p}{)}\PY{p}{:}
+            \PY{n}{d} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{threshold}
+            \PY{c+c1}{\PYZsh{}data[u\PYZsq{}事件编号\PYZsq{}] = d.cumsum() + 1}
+            \PY{c+c1}{\PYZsh{}return data[u\PYZsq{}事件编号\PYZsq{}].tolist()[\PYZhy{}1]}
+            \PY{k}{return} \PY{n}{d}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+        
+        \PY{n}{dt} \PY{o}{=} \PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{Timedelta}\PY{p}{(}\PY{n}{minutes} \PY{o}{=} \PY{n}{i}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{900}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{]}
+        \PY{n}{h} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{dt}\PY{p}{,}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{阈值}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{事件数}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{阈值}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{findsum}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{c+c1}{\PYZsh{}显示中文}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.sans\PYZhy{}serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SimHei}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.unicode\PYZus{}minus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{,} \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{事件数}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{阈值}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{事件数}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using matplotlib backend: Qt5Agg
+
+    \end{Verbatim}
+
+    从阈值与事件数的关系图可以看出，在某段阈值范围内，下降趋势明显，说明在该段阈值范围内，用户的停顿习惯比较集中。在阈值4-5之间，曲线的斜率趋于稳定，说明这段时间内用户的停顿习惯趋于稳定。所以取平缓的时间段中的开始时间作为阈值，既不会将短的用水事件合并，又不会将长的用水事件拆开。
+
+接下来，我们使用python对用户的用水数据划分阈值进行寻优。寻优区间在1分钟-9分钟。
+在寻优过程中，以曲线的斜率为指标。即寻找所有阈值中斜率指标最小的阈值。此处使用一个专家阈值5。如果该阈值的斜率指标小于5，则取该阈值作为用水事件划分的阈值；如果该阈值的斜率指标不小于5，则阈值取默认值4分钟。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}\PYZhy{}*\PYZhy{} coding:utf\PYZhy{}8 \PYZhy{}*\PYZhy{}}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{inpath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../tmp/water\PYZus{}data.xls}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{4} \PY{c+c1}{\PYZsh{}此处使用每个点后的4个点来计算该点的斜率指标}
+         
+         \PY{n}{threshold} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Timedelta}\PY{p}{(}\PY{n}{minutes} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)} \PY{c+c1}{\PYZsh{}专家阈值}
+         
+         \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{inpath}\PY{p}{,}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{水流量}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{k}{def} \PY{n+nf}{event\PYZus{}sum}\PY{p}{(}\PY{n}{ts}\PY{p}{)}\PY{p}{:}
+             \PY{n}{d} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{发生时间}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{ts}
+             \PY{k}{return} \PY{n}{d}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+         
+         \PY{n}{dt} \PY{o}{=} \PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{Timedelta}\PY{p}{(}\PY{n}{minutes} \PY{o}{=} \PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{]}
+         \PY{n}{h} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{dt}\PY{p}{,}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{阈值}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{事件数}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{阈值}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{event\PYZus{}sum}\PY{p}{)}
+         \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{斜率}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{事件数}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{0.25} \PY{c+c1}{\PYZsh{}计算每两个相邻点对应的斜率}
+         \PY{c+c1}{\PYZsh{}h[u\PYZsq{}斜率指标\PYZsq{}] = pd.rolling\PYZus{}mean(h[u\PYZsq{}斜率\PYZsq{}].abs(),n) \PYZsh{}使用后n个的斜率绝对值平均作为斜率指标}
+         \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{斜率指标}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{斜率}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ts} \PY{o}{=} \PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{阈值}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{h}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{斜率指标}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmin}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{n}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}idxmin返回最小值的Index,由于rolling\PYZus{}mean()自动计算前n个斜率的绝对值平均值，所以结果要平移（\PYZhy{}n）}
+         
+         \PY{k}{if} \PY{n}{ts} \PY{o}{\PYZgt{}} \PY{n}{threshold}\PY{p}{:}
+             \PY{n}{ts} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Timedelta}\PY{p}{(}\PY{n}{minutes} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{ts}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 days 00:04:00
+
+    \end{Verbatim}
+
+    根据我们的寻优代码，得到该段时间用水事件划分的最优阈值为4分钟。
+3）属性构造
+根据我们的研究目标，设定4类指标：时长指标、频率指标、用水量化指标、用水波动指标。
+（插图） 4）筛选出``候选洗浴事件''
+
+从已经划分好的用水事件中识别出洗浴事件
+首先用3个比较宽松的条件筛选掉那些非常短暂的用水事件，这3个条件是``或''的关系。
+1.一次用水事件的总用水量（纯热水）小于y升
+2.用水时长小于100秒（用水时间，不包括停顿）
+3.总用水时长小于120秒（事件开始到结束）
+
+（插图）
+对于Y的取值，此处我们基于热量守恒建立了标准热水量换算模型的计算公式。
+根据公式来计算用水事件在不同实际用水温度下的标准热水使用量。
+
+\subsubsection{数据清洗}\label{ux6570ux636eux6e05ux6d17}
+
+在用水状态记录缺失的的情况下，填充一条状态记录使水流量为0，发生时间加2秒，其余属性状态不变。
+
+\subsection{模型建立}\label{ux6a21ux578bux5efaux7acb}
+
+在本实验中，由于数据并未给出数据标签。无法对模型进行训练。
+此处我们使用一部分已经标注好的数据来对模型进行训练 （插图）
+
+根据用户提供的用水日志，将其中洗浴事件的数据状态记录作为训练样本训练多层神经网络。
+使用``候选洗浴事件''的11个属性作为网络的输入，训练BP网络时给定的输出是1与0。1代表是洗浴事件，0则不是。这个判断是用户提供的。
+
+训练神经网络时，对神经网络的参数进行了寻优。
+发现含二个隐层的神经网络训练效果较好，其中二个隐层的隐节点数分别为17、10时训练的效果较好。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} \PYZhy{}*\PYZhy{} coding: utf\PYZhy{}8 \PYZhy{}*\PYZhy{}}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{n}{inputfile1} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/train\PYZus{}neural\PYZus{}network\PYZus{}data.xls}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{inputfile2} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/test\PYZus{}neural\PYZus{}network\PYZus{}data.xls}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{testoutputfile} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../tmp/test\PYZus{}output\PYZus{}data.xls}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{data\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{inputfile1}\PY{p}{)}
+        \PY{n}{data\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{inputfile2}\PY{p}{)}
+        
+        \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{17}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{17}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers}\PY{n+nn}{.}\PY{n+nn}{core} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Dropout}
+        
+        \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}model.compile(loss=\PYZsq{}binary\PYZus{}crossentropy\PYZsq{}, optimizer=\PYZsq{}adam\PYZsq{}, class\PYZus{}mode=\PYZsq{}binary\PYZsq{})}
+        \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)} \PY{c+c1}{\PYZsh{}82.14\PYZpc{}}
+        
+        \PY{n}{model}\PY{o}{.}\PY{n}{save\PYZus{}weights}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../tmp/net.model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{r}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{predict\PYZus{}classes}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{预测结果}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{n}{r}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{n}{testoutputfile}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{vis\PYZus{}utils} \PY{k}{import} \PY{n}{plot\PYZus{}model}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PATH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{pathsep} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C:/Program Files (x86)/Graphviz2.38/bin/}\PY{l+s+s1}{\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}https://blog.csdn.net/chadian3912/article/details/81976956}
+        \PY{n}{plot\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{to\PYZus{}file}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{show\PYZus{}shapes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/500
+ - 1s - loss: 11.5761 - acc: 0.2143
+Epoch 2/500
+ - 0s - loss: 12.6517 - acc: 0.2143
+Epoch 3/500
+ - 0s - loss: 10.0179 - acc: 0.3571
+Epoch 4/500
+ - 0s - loss: 12.6470 - acc: 0.2143
+Epoch 5/500
+ - 0s - loss: 11.4780 - acc: 0.2500
+Epoch 6/500
+ - 0s - loss: 10.8206 - acc: 0.3214
+Epoch 7/500
+ - 0s - loss: 10.9677 - acc: 0.2857
+Epoch 8/500
+ - 0s - loss: 7.5402 - acc: 0.5000
+Epoch 9/500
+ - 0s - loss: 9.1730 - acc: 0.4286
+Epoch 10/500
+ - 0s - loss: 10.3566 - acc: 0.3571
+Epoch 11/500
+ - 0s - loss: 9.7734 - acc: 0.3929
+Epoch 12/500
+ - 0s - loss: 10.3032 - acc: 0.3571
+Epoch 13/500
+ - 0s - loss: 10.7067 - acc: 0.2857
+Epoch 14/500
+ - 0s - loss: 10.3554 - acc: 0.3571
+Epoch 15/500
+ - 0s - loss: 8.0590 - acc: 0.5000
+Epoch 16/500
+ - 0s - loss: 9.7860 - acc: 0.3929
+Epoch 17/500
+ - 0s - loss: 11.0426 - acc: 0.2857
+Epoch 18/500
+ - 0s - loss: 10.0608 - acc: 0.3571
+Epoch 19/500
+ - 0s - loss: 9.2041 - acc: 0.4286
+Epoch 20/500
+ - 0s - loss: 10.7114 - acc: 0.3214
+Epoch 21/500
+ - 0s - loss: 10.8160 - acc: 0.2857
+Epoch 22/500
+ - 0s - loss: 9.9634 - acc: 0.3571
+Epoch 23/500
+ - 0s - loss: 9.7672 - acc: 0.3929
+Epoch 24/500
+ - 0s - loss: 10.5959 - acc: 0.3214
+Epoch 25/500
+ - 0s - loss: 9.6219 - acc: 0.3571
+Epoch 26/500
+ - 0s - loss: 10.4488 - acc: 0.3214
+Epoch 27/500
+ - 0s - loss: 10.2381 - acc: 0.3571
+Epoch 28/500
+ - 0s - loss: 7.9407 - acc: 0.4286
+Epoch 29/500
+ - 0s - loss: 10.1185 - acc: 0.3571
+Epoch 30/500
+ - 0s - loss: 6.1867 - acc: 0.5714
+Epoch 31/500
+ - 0s - loss: 6.3109 - acc: 0.6071
+Epoch 32/500
+ - 0s - loss: 5.6110 - acc: 0.6429
+Epoch 33/500
+ - 0s - loss: 6.5165 - acc: 0.5714
+Epoch 34/500
+ - 0s - loss: 9.6185 - acc: 0.3929
+Epoch 35/500
+ - 0s - loss: 7.2722 - acc: 0.4643
+Epoch 36/500
+ - 0s - loss: 5.8388 - acc: 0.6071
+Epoch 37/500
+ - 0s - loss: 6.2913 - acc: 0.6071
+Epoch 38/500
+ - 0s - loss: 6.4434 - acc: 0.5714
+Epoch 39/500
+ - 0s - loss: 4.1710 - acc: 0.7143
+Epoch 40/500
+ - 0s - loss: 3.7360 - acc: 0.7143
+Epoch 41/500
+ - 0s - loss: 2.6204 - acc: 0.8214
+Epoch 42/500
+ - 0s - loss: 3.9013 - acc: 0.7500
+Epoch 43/500
+ - 0s - loss: 3.9006 - acc: 0.7500
+Epoch 44/500
+ - 0s - loss: 5.4093 - acc: 0.6429
+Epoch 45/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 46/500
+ - 0s - loss: 3.9989 - acc: 0.7500
+Epoch 47/500
+ - 0s - loss: 5.4076 - acc: 0.6429
+Epoch 48/500
+ - 0s - loss: 3.5384 - acc: 0.7500
+Epoch 49/500
+ - 0s - loss: 3.5386 - acc: 0.7500
+Epoch 50/500
+ - 0s - loss: 5.1432 - acc: 0.6786
+Epoch 51/500
+ - 0s - loss: 3.7408 - acc: 0.7143
+Epoch 52/500
+ - 0s - loss: 5.4608 - acc: 0.6429
+Epoch 53/500
+ - 0s - loss: 4.0044 - acc: 0.7500
+Epoch 54/500
+ - 0s - loss: 4.7073 - acc: 0.6429
+Epoch 55/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 56/500
+ - 0s - loss: 3.4225 - acc: 0.7857
+Epoch 57/500
+ - 0s - loss: 4.0166 - acc: 0.7500
+Epoch 58/500
+ - 0s - loss: 2.8653 - acc: 0.8214
+Epoch 59/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 60/500
+ - 0s - loss: 3.6936 - acc: 0.7500
+Epoch 61/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 62/500
+ - 0s - loss: 5.1432 - acc: 0.6786
+Epoch 63/500
+ - 0s - loss: 2.9179 - acc: 0.7857
+Epoch 64/500
+ - 0s - loss: 6.2697 - acc: 0.6071
+Epoch 65/500
+ - 0s - loss: 2.3629 - acc: 0.7857
+Epoch 66/500
+ - 0s - loss: 3.7342 - acc: 0.7500
+Epoch 67/500
+ - 0s - loss: 2.2775 - acc: 0.8571
+Epoch 68/500
+ - 0s - loss: 2.8548 - acc: 0.8214
+Epoch 69/500
+ - 0s - loss: 4.5738 - acc: 0.7143
+Epoch 70/500
+ - 0s - loss: 3.8502 - acc: 0.7500
+Epoch 71/500
+ - 0s - loss: 2.8737 - acc: 0.7857
+Epoch 72/500
+ - 0s - loss: 3.4225 - acc: 0.7857
+Epoch 73/500
+ - 0s - loss: 3.4163 - acc: 0.7857
+Epoch 74/500
+ - 0s - loss: 5.7068 - acc: 0.6429
+Epoch 75/500
+ - 0s - loss: 4.1225 - acc: 0.7143
+Epoch 76/500
+ - 0s - loss: 2.9219 - acc: 0.7857
+Epoch 77/500
+ - 0s - loss: 3.7345 - acc: 0.7500
+Epoch 78/500
+ - 0s - loss: 4.5675 - acc: 0.7143
+Epoch 79/500
+ - 0s - loss: 3.3542 - acc: 0.7500
+Epoch 80/500
+ - 0s - loss: 3.4228 - acc: 0.7857
+Epoch 81/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 82/500
+ - 0s - loss: 2.8739 - acc: 0.7857
+Epoch 83/500
+ - 0s - loss: 3.4163 - acc: 0.7857
+Epoch 84/500
+ - 0s - loss: 4.1486 - acc: 0.7143
+Epoch 85/500
+ - 0s - loss: 4.2769 - acc: 0.7143
+Epoch 86/500
+ - 0s - loss: 3.4233 - acc: 0.7857
+Epoch 87/500
+ - 0s - loss: 3.1751 - acc: 0.7857
+Epoch 88/500
+ - 0s - loss: 3.0398 - acc: 0.7857
+Epoch 89/500
+ - 0s - loss: 2.9229 - acc: 0.7857
+Epoch 90/500
+ - 0s - loss: 5.0832 - acc: 0.6429
+Epoch 91/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 92/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 93/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 94/500
+ - 0s - loss: 3.4384 - acc: 0.7857
+Epoch 95/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 96/500
+ - 0s - loss: 3.1034 - acc: 0.7857
+Epoch 97/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 98/500
+ - 0s - loss: 3.4163 - acc: 0.7857
+Epoch 99/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 100/500
+ - 0s - loss: 4.0141 - acc: 0.7500
+Epoch 101/500
+ - 0s - loss: 3.0383 - acc: 0.7857
+Epoch 102/500
+ - 0s - loss: 3.1802 - acc: 0.7857
+Epoch 103/500
+ - 0s - loss: 3.8447 - acc: 0.7500
+Epoch 104/500
+ - 0s - loss: 3.4734 - acc: 0.7500
+Epoch 105/500
+ - 0s - loss: 2.2775 - acc: 0.8571
+Epoch 106/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 107/500
+ - 0s - loss: 3.5259 - acc: 0.7500
+Epoch 108/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 109/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 110/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 111/500
+ - 0s - loss: 2.8691 - acc: 0.8214
+Epoch 112/500
+ - 0s - loss: 3.6307 - acc: 0.7500
+Epoch 113/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 114/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 115/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 116/500
+ - 0s - loss: 3.4188 - acc: 0.7857
+Epoch 117/500
+ - 0s - loss: 4.0055 - acc: 0.7500
+Epoch 118/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 119/500
+ - 0s - loss: 3.4383 - acc: 0.7857
+Epoch 120/500
+ - 0s - loss: 3.4771 - acc: 0.7500
+Epoch 121/500
+ - 0s - loss: 3.3667 - acc: 0.7857
+Epoch 122/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 123/500
+ - 0s - loss: 3.4383 - acc: 0.7857
+Epoch 124/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 125/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 126/500
+ - 0s - loss: 3.0723 - acc: 0.7857
+Epoch 127/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 128/500
+ - 0s - loss: 2.8745 - acc: 0.7857
+Epoch 129/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 130/500
+ - 0s - loss: 3.6864 - acc: 0.7500
+Epoch 131/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 132/500
+ - 0s - loss: 3.9142 - acc: 0.7500
+Epoch 133/500
+ - 0s - loss: 3.9906 - acc: 0.7500
+Epoch 134/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 135/500
+ - 0s - loss: 3.5752 - acc: 0.7143
+Epoch 136/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 137/500
+ - 0s - loss: 3.8429 - acc: 0.7500
+Epoch 138/500
+ - 0s - loss: 4.5675 - acc: 0.7143
+Epoch 139/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 140/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 141/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 142/500
+ - 0s - loss: 2.8482 - acc: 0.8214
+Epoch 143/500
+ - 0s - loss: 3.4379 - acc: 0.7857
+Epoch 144/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 145/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 146/500
+ - 0s - loss: 3.4378 - acc: 0.7857
+Epoch 147/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 148/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 149/500
+ - 0s - loss: 3.4378 - acc: 0.7857
+Epoch 150/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 151/500
+ - 0s - loss: 2.8752 - acc: 0.7857
+Epoch 152/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 153/500
+ - 0s - loss: 3.4378 - acc: 0.7857
+Epoch 154/500
+ - 0s - loss: 3.4377 - acc: 0.7857
+Epoch 155/500
+ - 0s - loss: 2.2775 - acc: 0.8571
+Epoch 156/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 157/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 158/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 159/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 160/500
+ - 0s - loss: 2.8825 - acc: 0.7857
+Epoch 161/500
+ - 0s - loss: 2.8752 - acc: 0.7857
+Epoch 162/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 163/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 164/500
+ - 0s - loss: 2.8523 - acc: 0.8214
+Epoch 165/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 166/500
+ - 0s - loss: 2.8471 - acc: 0.8214
+Epoch 167/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 168/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 169/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 170/500
+ - 0s - loss: 3.4378 - acc: 0.7857
+Epoch 171/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 172/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 173/500
+ - 0s - loss: 3.8224 - acc: 0.7500
+Epoch 174/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 175/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 176/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 177/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 178/500
+ - 0s - loss: 2.6054 - acc: 0.8214
+Epoch 179/500
+ - 0s - loss: 3.0857 - acc: 0.7857
+Epoch 180/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 181/500
+ - 0s - loss: 3.7238 - acc: 0.7500
+Epoch 182/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 183/500
+ - 0s - loss: 2.8511 - acc: 0.8214
+Epoch 184/500
+ - 0s - loss: 3.4376 - acc: 0.7857
+Epoch 185/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 186/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 187/500
+ - 0s - loss: 3.0988 - acc: 0.7857
+Epoch 188/500
+ - 0s - loss: 3.8687 - acc: 0.7500
+Epoch 189/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 190/500
+ - 0s - loss: 3.2040 - acc: 0.7857
+Epoch 191/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 192/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 193/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 194/500
+ - 0s - loss: 3.4377 - acc: 0.7857
+Epoch 195/500
+ - 0s - loss: 3.4376 - acc: 0.7857
+Epoch 196/500
+ - 0s - loss: 2.4935 - acc: 0.8214
+Epoch 197/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 198/500
+ - 0s - loss: 3.4225 - acc: 0.7857
+Epoch 199/500
+ - 0s - loss: 3.8004 - acc: 0.7500
+Epoch 200/500
+ - 0s - loss: 3.4973 - acc: 0.7500
+Epoch 201/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 202/500
+ - 0s - loss: 2.4581 - acc: 0.8214
+Epoch 203/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 204/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 205/500
+ - 0s - loss: 3.0077 - acc: 0.7857
+Epoch 206/500
+ - 0s - loss: 3.4404 - acc: 0.7857
+Epoch 207/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 208/500
+ - 0s - loss: 3.7903 - acc: 0.7500
+Epoch 209/500
+ - 0s - loss: 3.5006 - acc: 0.7500
+Epoch 210/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 211/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 212/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 213/500
+ - 0s - loss: 2.9347 - acc: 0.7857
+Epoch 214/500
+ - 0s - loss: 3.4163 - acc: 0.7857
+Epoch 215/500
+ - 0s - loss: 3.4553 - acc: 0.7500
+Epoch 216/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 217/500
+ - 0s - loss: 3.4225 - acc: 0.7857
+Epoch 218/500
+ - 0s - loss: 2.5784 - acc: 0.7857
+Epoch 219/500
+ - 0s - loss: 3.3348 - acc: 0.7857
+Epoch 220/500
+ - 0s - loss: 2.8470 - acc: 0.8214
+Epoch 221/500
+ - 0s - loss: 3.4735 - acc: 0.7500
+Epoch 222/500
+ - 0s - loss: 3.6707 - acc: 0.7500
+Epoch 223/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 224/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 225/500
+ - 0s - loss: 3.8170 - acc: 0.7500
+Epoch 226/500
+ - 0s - loss: 3.7392 - acc: 0.7500
+Epoch 227/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 228/500
+ - 0s - loss: 2.9170 - acc: 0.7857
+Epoch 229/500
+ - 0s - loss: 3.0366 - acc: 0.7857
+Epoch 230/500
+ - 0s - loss: 3.4193 - acc: 0.7857
+Epoch 231/500
+ - 0s - loss: 3.5627 - acc: 0.7500
+Epoch 232/500
+ - 0s - loss: 3.4585 - acc: 0.7857
+Epoch 233/500
+ - 0s - loss: 3.4476 - acc: 0.7857
+Epoch 234/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 235/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 236/500
+ - 0s - loss: 4.0128 - acc: 0.7500
+Epoch 237/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 238/500
+ - 0s - loss: 3.8871 - acc: 0.7500
+Epoch 239/500
+ - 0s - loss: 2.8500 - acc: 0.8214
+Epoch 240/500
+ - 0s - loss: 2.8762 - acc: 0.7857
+Epoch 241/500
+ - 0s - loss: 3.1333 - acc: 0.7857
+Epoch 242/500
+ - 0s - loss: 3.3383 - acc: 0.7857
+Epoch 243/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 244/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 245/500
+ - 0s - loss: 3.1917 - acc: 0.7857
+Epoch 246/500
+ - 0s - loss: 2.8476 - acc: 0.8214
+Epoch 247/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 248/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 249/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 250/500
+ - 0s - loss: 3.1452 - acc: 0.7857
+Epoch 251/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 252/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 253/500
+ - 0s - loss: 2.8756 - acc: 0.7857
+Epoch 254/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 255/500
+ - 0s - loss: 3.4163 - acc: 0.7857
+Epoch 256/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 257/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 258/500
+ - 0s - loss: 3.0659 - acc: 0.7857
+Epoch 259/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 260/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 261/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 262/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 263/500
+ - 0s - loss: 3.4510 - acc: 0.7500
+Epoch 264/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 265/500
+ - 0s - loss: 3.4376 - acc: 0.7857
+Epoch 266/500
+ - 0s - loss: 3.4540 - acc: 0.7500
+Epoch 267/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 268/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 269/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 270/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 271/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 272/500
+ - 0s - loss: 3.3859 - acc: 0.7500
+Epoch 273/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 274/500
+ - 0s - loss: 2.8543 - acc: 0.8214
+Epoch 275/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 276/500
+ - 0s - loss: 3.4295 - acc: 0.7500
+Epoch 277/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 278/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 279/500
+ - 0s - loss: 2.6672 - acc: 0.8214
+Epoch 280/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 281/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 282/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 283/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 284/500
+ - 0s - loss: 3.4163 - acc: 0.7857
+Epoch 285/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 286/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 287/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 288/500
+ - 0s - loss: 3.1788 - acc: 0.7857
+Epoch 289/500
+ - 0s - loss: 3.2014 - acc: 0.7500
+Epoch 290/500
+ - 0s - loss: 3.5345 - acc: 0.7500
+Epoch 291/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 292/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 293/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 294/500
+ - 0s - loss: 2.8573 - acc: 0.8214
+Epoch 295/500
+ - 0s - loss: 3.7279 - acc: 0.7500
+Epoch 296/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 297/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 298/500
+ - 0s - loss: 4.0134 - acc: 0.7500
+Epoch 299/500
+ - 0s - loss: 2.3060 - acc: 0.8214
+Epoch 300/500
+ - 0s - loss: 3.6285 - acc: 0.7500
+Epoch 301/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 302/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 303/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 304/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 305/500
+ - 0s - loss: 4.0134 - acc: 0.7500
+Epoch 306/500
+ - 0s - loss: 3.5182 - acc: 0.7143
+Epoch 307/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 308/500
+ - 0s - loss: 3.3378 - acc: 0.7857
+Epoch 309/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 310/500
+ - 0s - loss: 3.6589 - acc: 0.7500
+Epoch 311/500
+ - 0s - loss: 3.4440 - acc: 0.7857
+Epoch 312/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 313/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 314/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 315/500
+ - 0s - loss: 2.9050 - acc: 0.7857
+Epoch 316/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 317/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 318/500
+ - 0s - loss: 3.4243 - acc: 0.7857
+Epoch 319/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 320/500
+ - 0s - loss: 3.0394 - acc: 0.7857
+Epoch 321/500
+ - 0s - loss: 4.2970 - acc: 0.7143
+Epoch 322/500
+ - 0s - loss: 3.4375 - acc: 0.7857
+Epoch 323/500
+ - 0s - loss: 3.1158 - acc: 0.7857
+Epoch 324/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 325/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 326/500
+ - 0s - loss: 2.8904 - acc: 0.8214
+Epoch 327/500
+ - 0s - loss: 3.2706 - acc: 0.7857
+Epoch 328/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 329/500
+ - 0s - loss: 3.4163 - acc: 0.7857
+Epoch 330/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 331/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 332/500
+ - 0s - loss: 3.9921 - acc: 0.7500
+Epoch 333/500
+ - 0s - loss: 2.6130 - acc: 0.8214
+Epoch 334/500
+ - 0s - loss: 2.8525 - acc: 0.8214
+Epoch 335/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 336/500
+ - 0s - loss: 2.6737 - acc: 0.7857
+Epoch 337/500
+ - 0s - loss: 4.5675 - acc: 0.7143
+Epoch 338/500
+ - 0s - loss: 3.4379 - acc: 0.7857
+Epoch 339/500
+ - 0s - loss: 2.4402 - acc: 0.8214
+Epoch 340/500
+ - 0s - loss: 3.4392 - acc: 0.7857
+Epoch 341/500
+ - 0s - loss: 3.0825 - acc: 0.7857
+Epoch 342/500
+ - 0s - loss: 3.3246 - acc: 0.7857
+Epoch 343/500
+ - 0s - loss: 3.4596 - acc: 0.7857
+Epoch 344/500
+ - 0s - loss: 3.4380 - acc: 0.7857
+Epoch 345/500
+ - 0s - loss: 3.0632 - acc: 0.7857
+Epoch 346/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 347/500
+ - 0s - loss: 2.5832 - acc: 0.8214
+Epoch 348/500
+ - 0s - loss: 3.3369 - acc: 0.7857
+Epoch 349/500
+ - 0s - loss: 2.0490 - acc: 0.8571
+Epoch 350/500
+ - 0s - loss: 2.2775 - acc: 0.8571
+Epoch 351/500
+ - 0s - loss: 3.4225 - acc: 0.7857
+Epoch 352/500
+ - 0s - loss: 3.3228 - acc: 0.7500
+Epoch 353/500
+ - 0s - loss: 3.1245 - acc: 0.7857
+Epoch 354/500
+ - 0s - loss: 3.2068 - acc: 0.7857
+Epoch 355/500
+ - 0s - loss: 2.8947 - acc: 0.7500
+Epoch 356/500
+ - 0s - loss: 2.8509 - acc: 0.7857
+Epoch 357/500
+ - 0s - loss: 3.4354 - acc: 0.7857
+Epoch 358/500
+ - 0s - loss: 2.8747 - acc: 0.7857
+Epoch 359/500
+ - 0s - loss: 2.5318 - acc: 0.7500
+Epoch 360/500
+ - 0s - loss: 3.4821 - acc: 0.7857
+Epoch 361/500
+ - 0s - loss: 3.1603 - acc: 0.7500
+Epoch 362/500
+ - 0s - loss: 3.4253 - acc: 0.7857
+Epoch 363/500
+ - 0s - loss: 3.1137 - acc: 0.7857
+Epoch 364/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 365/500
+ - 0s - loss: 3.4227 - acc: 0.7857
+Epoch 366/500
+ - 0s - loss: 2.8968 - acc: 0.7857
+Epoch 367/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 368/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 369/500
+ - 0s - loss: 3.4380 - acc: 0.7857
+Epoch 370/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 371/500
+ - 0s - loss: 2.6752 - acc: 0.7857
+Epoch 372/500
+ - 0s - loss: 4.1386 - acc: 0.7143
+Epoch 373/500
+ - 0s - loss: 3.0360 - acc: 0.7857
+Epoch 374/500
+ - 0s - loss: 3.4381 - acc: 0.7857
+Epoch 375/500
+ - 0s - loss: 2.8469 - acc: 0.8214
+Epoch 376/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 377/500
+ - 0s - loss: 3.3075 - acc: 0.7857
+Epoch 378/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 379/500
+ - 0s - loss: 3.3833 - acc: 0.7500
+Epoch 380/500
+ - 0s - loss: 3.3275 - acc: 0.7857
+Epoch 381/500
+ - 0s - loss: 4.0491 - acc: 0.7143
+Epoch 382/500
+ - 0s - loss: 3.0156 - acc: 0.7857
+Epoch 383/500
+ - 0s - loss: 3.4557 - acc: 0.7857
+Epoch 384/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 385/500
+ - 0s - loss: 2.9185 - acc: 0.7857
+Epoch 386/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 387/500
+ - 0s - loss: 2.3833 - acc: 0.7857
+Epoch 388/500
+ - 0s - loss: 3.4381 - acc: 0.7857
+Epoch 389/500
+ - 0s - loss: 3.4380 - acc: 0.7857
+Epoch 390/500
+ - 0s - loss: 3.9919 - acc: 0.7500
+Epoch 391/500
+ - 0s - loss: 3.4408 - acc: 0.7857
+Epoch 392/500
+ - 0s - loss: 3.4379 - acc: 0.7857
+Epoch 393/500
+ - 0s - loss: 3.4318 - acc: 0.7857
+Epoch 394/500
+ - 0s - loss: 2.9728 - acc: 0.7857
+Epoch 395/500
+ - 0s - loss: 2.8750 - acc: 0.7857
+Epoch 396/500
+ - 0s - loss: 3.4380 - acc: 0.7857
+Epoch 397/500
+ - 0s - loss: 3.5860 - acc: 0.7143
+Epoch 398/500
+ - 0s - loss: 2.8685 - acc: 0.8214
+Epoch 399/500
+ - 0s - loss: 3.4379 - acc: 0.7857
+Epoch 400/500
+ - 0s - loss: 3.4450 - acc: 0.7857
+Epoch 401/500
+ - 0s - loss: 2.2138 - acc: 0.7857
+Epoch 402/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 403/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 404/500
+ - 0s - loss: 3.0747 - acc: 0.7857
+Epoch 405/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 406/500
+ - 0s - loss: 2.6596 - acc: 0.7857
+Epoch 407/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 408/500
+ - 0s - loss: 2.8686 - acc: 0.8214
+Epoch 409/500
+ - 0s - loss: 3.4904 - acc: 0.7500
+Epoch 410/500
+ - 0s - loss: 2.4163 - acc: 0.7857
+Epoch 411/500
+ - 0s - loss: 3.1632 - acc: 0.7857
+Epoch 412/500
+ - 0s - loss: 4.0319 - acc: 0.7500
+Epoch 413/500
+ - 0s - loss: 2.8904 - acc: 0.8214
+Epoch 414/500
+ - 0s - loss: 3.5198 - acc: 0.7500
+Epoch 415/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 416/500
+ - 0s - loss: 3.4378 - acc: 0.7857
+Epoch 417/500
+ - 0s - loss: 2.6578 - acc: 0.8214
+Epoch 418/500
+ - 0s - loss: 3.4378 - acc: 0.7857
+Epoch 419/500
+ - 0s - loss: 2.8751 - acc: 0.7857
+Epoch 420/500
+ - 0s - loss: 2.8967 - acc: 0.7857
+Epoch 421/500
+ - 0s - loss: 3.4378 - acc: 0.7857
+Epoch 422/500
+ - 0s - loss: 3.0108 - acc: 0.7857
+Epoch 423/500
+ - 0s - loss: 2.8761 - acc: 0.7857
+Epoch 424/500
+ - 0s - loss: 2.9264 - acc: 0.7857
+Epoch 425/500
+ - 0s - loss: 2.8671 - acc: 0.8214
+Epoch 426/500
+ - 0s - loss: 2.3919 - acc: 0.7857
+Epoch 427/500
+ - 0s - loss: 4.0137 - acc: 0.7500
+Epoch 428/500
+ - 0s - loss: 3.8175 - acc: 0.7500
+Epoch 429/500
+ - 0s - loss: 2.9394 - acc: 0.7857
+Epoch 430/500
+ - 0s - loss: 3.4173 - acc: 0.7857
+Epoch 431/500
+ - 0s - loss: 2.8478 - acc: 0.8214
+Epoch 432/500
+ - 0s - loss: 3.4162 - acc: 0.7857
+Epoch 433/500
+ - 0s - loss: 2.8685 - acc: 0.8214
+Epoch 434/500
+ - 0s - loss: 3.2457 - acc: 0.7500
+Epoch 435/500
+ - 0s - loss: 3.4195 - acc: 0.7857
+Epoch 436/500
+ - 0s - loss: 3.4529 - acc: 0.7857
+Epoch 437/500
+ - 0s - loss: 3.4354 - acc: 0.7857
+Epoch 438/500
+ - 0s - loss: 2.9639 - acc: 0.7857
+Epoch 439/500
+ - 0s - loss: 2.8753 - acc: 0.7857
+Epoch 440/500
+ - 0s - loss: 3.1042 - acc: 0.7857
+Epoch 441/500
+ - 0s - loss: 3.0297 - acc: 0.7857
+Epoch 442/500
+ - 0s - loss: 2.8470 - acc: 0.8214
+Epoch 443/500
+ - 0s - loss: 2.8037 - acc: 0.7857
+Epoch 444/500
+ - 0s - loss: 3.4602 - acc: 0.7857
+Epoch 445/500
+ - 0s - loss: 3.4511 - acc: 0.7500
+Epoch 446/500
+ - 0s - loss: 2.5084 - acc: 0.7857
+Epoch 447/500
+ - 0s - loss: 2.9699 - acc: 0.7857
+Epoch 448/500
+ - 0s - loss: 2.8943 - acc: 0.8214
+Epoch 449/500
+ - 0s - loss: 2.8717 - acc: 0.8214
+Epoch 450/500
+ - 0s - loss: 3.4381 - acc: 0.7857
+Epoch 451/500
+ - 0s - loss: 3.0602 - acc: 0.7857
+Epoch 452/500
+ - 0s - loss: 2.9327 - acc: 0.7857
+Epoch 453/500
+ - 0s - loss: 3.4176 - acc: 0.7857
+Epoch 454/500
+ - 0s - loss: 2.8985 - acc: 0.7857
+Epoch 455/500
+ - 0s - loss: 3.4192 - acc: 0.7857
+Epoch 456/500
+ - 0s - loss: 2.4156 - acc: 0.7857
+Epoch 457/500
+ - 0s - loss: 3.0325 - acc: 0.7857
+Epoch 458/500
+ - 0s - loss: 2.2814 - acc: 0.8571
+Epoch 459/500
+ - 0s - loss: 3.4305 - acc: 0.7857
+Epoch 460/500
+ - 0s - loss: 2.3742 - acc: 0.8214
+Epoch 461/500
+ - 0s - loss: 3.9950 - acc: 0.7500
+Epoch 462/500
+ - 0s - loss: 2.0423 - acc: 0.8214
+Epoch 463/500
+ - 0s - loss: 3.4851 - acc: 0.7857
+Epoch 464/500
+ - 0s - loss: 2.3214 - acc: 0.8214
+Epoch 465/500
+ - 0s - loss: 2.8853 - acc: 0.7857
+Epoch 466/500
+ - 0s - loss: 3.4848 - acc: 0.7857
+Epoch 467/500
+ - 0s - loss: 3.4694 - acc: 0.7857
+Epoch 468/500
+ - 0s - loss: 2.3590 - acc: 0.8214
+Epoch 469/500
+ - 0s - loss: 2.5000 - acc: 0.7500
+Epoch 470/500
+ - 0s - loss: 3.0334 - acc: 0.7857
+Epoch 471/500
+ - 0s - loss: 2.6725 - acc: 0.7500
+Epoch 472/500
+ - 0s - loss: 2.9149 - acc: 0.7857
+Epoch 473/500
+ - 0s - loss: 3.0287 - acc: 0.7500
+Epoch 474/500
+ - 0s - loss: 2.5068 - acc: 0.7857
+Epoch 475/500
+ - 0s - loss: 3.4104 - acc: 0.7500
+Epoch 476/500
+ - 0s - loss: 2.9104 - acc: 0.7857
+Epoch 477/500
+ - 0s - loss: 1.8097 - acc: 0.8214
+Epoch 478/500
+ - 0s - loss: 2.4277 - acc: 0.8214
+Epoch 479/500
+ - 0s - loss: 2.3539 - acc: 0.8214
+Epoch 480/500
+ - 0s - loss: 2.3550 - acc: 0.7857
+Epoch 481/500
+ - 0s - loss: 2.4072 - acc: 0.7857
+Epoch 482/500
+ - 0s - loss: 2.8927 - acc: 0.7857
+Epoch 483/500
+ - 0s - loss: 3.4168 - acc: 0.7857
+Epoch 484/500
+ - 0s - loss: 3.0415 - acc: 0.7500
+Epoch 485/500
+ - 0s - loss: 2.6432 - acc: 0.7500
+Epoch 486/500
+ - 0s - loss: 2.3547 - acc: 0.8571
+Epoch 487/500
+ - 0s - loss: 3.4810 - acc: 0.7857
+Epoch 488/500
+ - 0s - loss: 3.0644 - acc: 0.7857
+Epoch 489/500
+ - 0s - loss: 1.8480 - acc: 0.7857
+Epoch 490/500
+ - 0s - loss: 3.4432 - acc: 0.7857
+Epoch 491/500
+ - 0s - loss: 3.4661 - acc: 0.7857
+Epoch 492/500
+ - 0s - loss: 3.4378 - acc: 0.7857
+Epoch 493/500
+ - 0s - loss: 2.5308 - acc: 0.8214
+Epoch 494/500
+ - 0s - loss: 3.7029 - acc: 0.7500
+Epoch 495/500
+ - 0s - loss: 1.7695 - acc: 0.7857
+Epoch 496/500
+ - 0s - loss: 3.4459 - acc: 0.7857
+Epoch 497/500
+ - 0s - loss: 1.8498 - acc: 0.8214
+Epoch 498/500
+ - 0s - loss: 3.2598 - acc: 0.7857
+Epoch 499/500
+ - 0s - loss: 2.9454 - acc: 0.7857
+Epoch 500/500
+ - 0s - loss: 1.5908 - acc: 0.8214
+
+    \end{Verbatim}
+
+    \subsubsection{模型评价}\label{ux6a21ux578bux8bc4ux4ef7}
+
+根据该热水器用户提供的用水日志来判断事件是否为洗浴与多层神经网络模型识别结果的比较。由于我们的实验数据量较小，总共21条检测数据，准确识别了18条。模型对洗浴事件的识别准确率为85\%左右。
+\#\# 实验总结
+
+本实验基于实时监控的智能热水器的用户使用数据，重点介绍了数据挖掘中的数据预处理的数据清洗、数据规约、数据变换等方法，以及数据预处理在实际案例中
+的应用，并建立了热水器的洗浴事件识别的神经网络模型。
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
